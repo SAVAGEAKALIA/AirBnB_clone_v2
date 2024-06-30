@@ -9,6 +9,6 @@ GRANT ALL PRIVILEGES ON hbnb_dev_db.* TO 'hbnb_dev'@'localhost' WITH GRANT OPTIO
 
 -- Grant SELECT privilege on performance_schema to hbnb_dev
 GRANT SELECT ON performance_schema.* TO 'hbnb_dev'@'localhost';
-
+-- DROP TABLE IF EXISTS places, cities, users, states, amenities, reviews, place_amenity;
 -- Apply the changes
 FLUSH PRIVILEGES;
