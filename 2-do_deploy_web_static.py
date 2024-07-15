@@ -15,20 +15,17 @@ def do_deploy(archive_path):
     """
     Script to Deploy and update newer version to server
     """
-    # env.key_filename = argv[5]
-    # env.user = argv[7]
-    # env.hosts = ['54.160.101.222', '100.25.205.48']
 
     if not os.path.exists(archive_path):
         print(f"Archive file {archive_path} does not exist.")
         return False
-    
+
     try:
         archive_name = os.path.basename(archive_path)
         # Construct the release directory path
         release_dir = \
             f"/data/web_static/releases/{archive_name.replace('.tgz', '')}"
-            # print(release_dir)
+        # print(release_dir)
 
         for host in env.hosts:
             # Upload the archive to /tmp/ directory on the web servers
