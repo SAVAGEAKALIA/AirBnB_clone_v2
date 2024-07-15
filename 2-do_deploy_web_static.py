@@ -1,14 +1,19 @@
 #!/usr/bin/python3
 """ Fabric Script to Update Version on webserver """
 
-from fabric.api import Connection,  env
+from fabric.api import env, run, put
 import os
 from sys import argv
 
-archive_path = argv[1]
-env.hosts = ['54.160.101.222', '100.25.205.48']
-env.user = argv[4]
+if len(argv) < 4:
+    print("Usage: ./deploy.py <archive_path> <key_filename> <user>")
+    exit(1)
+
+# archive_path = argv[1]
 env.key_filename = argv[2]
+env.user = argv[3]
+env.hosts = ['54.160.101.222', '100.25.205.48']
+print(argv[0], argv[1], argv[2], argv[3], argv[4], argv[5])
 
 
 def do_deploy(archive_path):
@@ -30,26 +35,21 @@ def do_deploy(archive_path):
                 for host in env.host:
                     print(argv[4])
                     print(argv[2])
-                    with Connection(
-                            host=host,
-                            user=env.user,
-                            connect_kwargs={"key_filename": env.key_filename}) as c:
 
-                        print(f"Uploading {archive_path} to {host}...")
-                        c.put(archive_name, '/tmp/')
+                    print(f"Uploading {archive_path} to {host}...")
+                    put(archive_name, '/tmp/')
 
-                        print(f"Extracting {archive_name} on {host}...")
-                        # c.run(f'tar -xzf /tmp/{archive_path} -C /data/web_static/releases/')
-                        c.run(f'tar -xzf /tmp/{archive_name} -C {release_dir}')
+                    print(f"Extracting {archive_name} on {host}...")
+                    run(f'tar -xzf /tmp/{archive_name} -C {release_dir}')
 
-                        print(f"Removing {archive_name} from {host}...")
-                        c.run(f'rm -rf /tmp/{archive_name}')
+                    print(f"Removing {archive_name} from {host}...")
+                    run(f'rm -rf /tmp/{archive_name}')
 
-                        print(f"Deleting current symlink on {host}...")
-                        c.run(f'rm -rf /data/web_static/current')
+                    print(f"Deleting current symlink on {host}...")
+                    run(f'rm -rf /data/web_static/current')
 
-                        print(f"Creating new symlink on {host}...")
-                        c.run(f'ln -s {release_dir} /data/web_static/current')
+                    print(f"Creating new symlink on {host}...")
+                    run(f'ln -s {release_dir} /data/web_static/current')
                 print("New Version deployed")
                 return True
 
