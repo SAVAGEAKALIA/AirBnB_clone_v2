@@ -24,11 +24,11 @@ def do_deploy(archive_path):
             print(archive_name)
             release_dir = \
                 f"/data/web_static/releases/{archive_name.replace('.tgz', '')}"
-            print(release_dir)
+            # print(release_dir)
 
             for host in env.host:
                 print(f"Uploading {archive_path} to {host}...")
-                put(archive_name, '/tmp/')
+                put(archive_path, '/tmp/')
 
                 print(f"Creating directory {release_dir} on {host}...")
                 run(f'mkdir -p {release_dir}')
@@ -38,6 +38,9 @@ def do_deploy(archive_path):
 
                 print(f"Removing {archive_name} from {host}...")
                 run(f'rm -rf /tmp/{archive_name}')
+
+                print(f"Move {release_dir}/web_static* to {release_dir}...")
+                run(f'mv {release_dir/(os.path.join("web_static")}/*, {release_dir}')
 
                 print(f"Deleting current symlink on {host}...")
                 run(f'rm -rf /data/web_static/current')
