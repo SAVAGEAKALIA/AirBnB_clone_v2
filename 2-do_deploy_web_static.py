@@ -94,7 +94,7 @@ def do_deploy(archive_path):
             run(f'ln -s {release_dir} /data/web_static/current')
 
             print("New Version deployed successfully.")
-            return True
+        return True
 
     except Exception as e:
         # Handle any exceptions that occur during deployment
