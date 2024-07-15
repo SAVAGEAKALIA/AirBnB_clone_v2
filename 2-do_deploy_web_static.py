@@ -1,5 +1,6 @@
 #!/usr/bin/python3
-""" Fabric Script to Deploy and Update Version on Web Server. This script automates the deployment process by uploading
+"""
+Fabric Script to Deploy and Update Version on Web Server. This script automates the deployment process by uploading
  a specified archive
 to multiple hosts, extracting it, and updating symbolic links on the servers.
 Usage:
