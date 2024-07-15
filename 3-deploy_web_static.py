@@ -15,13 +15,16 @@ env.hosts = ['54.160.101.222', '100.25.205.48']
 def deploy():
     """
     A script that deploys to both webservers
-    calls the do_pack function to compress to tgz (moved outside the loop)
+    checks for archive existence before the loop
     calls the do_deploy function to send to the webserver
     and uncompress files
     """
-    archive_path = do_pack()
-    if not archive_path:
-        raise Exception("Packing failed")
+    archive_path = os.path.join('versions', f"web_static_{datetime.now().strftime('%Y%m%d%H%M%S')}.tgz")
+    if not os.path.exists(archive_path):
+        print("Archive file not found. Packing web_static...")
+        archive_path = do_pack()
+        if not archive_path:
+            raise Exception("Packing failed")
 
     successful_deploy = True
 
@@ -36,7 +39,3 @@ def deploy():
             print(f"Deployment successful for host: {host}")
 
     return successful_deploy
-
-
-if __name__ == '__main__':
-    deploy()
