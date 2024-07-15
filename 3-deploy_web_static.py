@@ -24,8 +24,4 @@ def deploy():
     except Exception as e:
         print(f"Error during packing: {e}")
         return False
-    if os.path.exists(archive_path):
-        result = do_deploy(archive_path)
-        return result
-    else:
-        return False
+    return do_deploy(archive_path)
