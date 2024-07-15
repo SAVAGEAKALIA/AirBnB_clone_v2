@@ -6,7 +6,7 @@ from fabric.api import env
 do_pack = __import__('1-pack_web_static').do_pack
 do_deploy = __import__('2-do_deploy_web_static').do_deploy
 
-# env.hosts = ['54.160.101.222', '100.25.205.48']
+env.hosts = ['54.160.101.222', '100.25.205.48']
 # env.user = 'ubuntu'
 # env.key_filename = '/etc/ssh/ssh_config'
 
@@ -27,8 +27,9 @@ def deploy():
         return False
 
     successful_deploy = True
-    # env.host_string = host
-    if not do_deploy(archive_path):
-        successful_deploy = False
+    for host in env.hosts:
+        env.host_string = host
+        if not do_deploy(archive_path):
+            successful_deploy = False
 
     return successful_deploy
