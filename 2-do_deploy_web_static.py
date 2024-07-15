@@ -92,8 +92,8 @@ def do_deploy(archive_path):
             print(f"Creating new symlink on {host}...")
             run(f'ln -s /data/web_static/releases/{release_dir} /data/web_static/current')
 
-        print("New Version deployed successfully.")
-        return True
+            print("New Version deployed successfully.")
+            return True
 
     except Exception as e:
         # Handle any exceptions that occur during deployment
