@@ -14,6 +14,9 @@ env.hosts = ['54.160.101.222', '100.25.205.48']
 def do_deploy(archive_path):
     """
     Script to Deploy and update newer version to server
+    Gets Path from archieve_path from command line arguments
+    Employs the use of fabric to automate setting up the deployment
+    Push the new version
     """
 
     if not os.path.exists(archive_path):
@@ -63,5 +66,6 @@ def do_deploy(archive_path):
             return True
 
     except Exception as e:
+        """ Exception error handling """
         print(f"Deployment failed: {e}")
         return False
