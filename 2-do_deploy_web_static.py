@@ -66,6 +66,7 @@ def do_deploy(archive_path):
 
             # Create the release directory
             print(f"Creating directory {release_dir} on {host}...")
+            run(f'rm -rf {release_dir}')
             run(f'mkdir -p {release_dir}')
 
             # Extract the archive contents to the release directory
