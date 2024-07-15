@@ -21,7 +21,7 @@ def do_pack():
     if os.path.exists('versions'):
         print("web_static packed: {} -> {}Bytes".
               format(output_path, os.path.getsize(output_path)))
-        print(f'{os.path.join("versions", output_file)}')
+        # print(f'{os.path.join("versions", output_file)}')
         return os.path.join('versions', output_file)
     else:
         return None
