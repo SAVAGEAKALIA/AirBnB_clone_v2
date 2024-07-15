@@ -3,12 +3,11 @@
 
 import os
 from fabric.api import env
-from datetime import datetime
 
 do_pack = __import__('1-pack_web_static').do_pack
 do_deploy = __import__('2-do_deploy_web_static').do_deploy
 
-env.hosts = ['54.160.101.222', '100.25.205.48']
+# env.hosts = ['54.160.101.222', '100.25.205.48']
 # env.user = 'ubuntu'
 # env.key_filename = '/etc/ssh/ssh_config'
 
@@ -16,27 +15,17 @@ env.hosts = ['54.160.101.222', '100.25.205.48']
 def deploy():
     """
     A script that deploys to both webservers
-    checks for archive existence before the loop
+    calls the do_pack function to compress to tgz (moved outside the loop)
     calls the do_deploy function to send to the webserver
     and uncompress files
     """
-    archive_path = os.path.join('versions', f"web_static_{datetime.now().strftime('%Y%m%d%H%M%S')}.tgz")
-    if not os.path.exists(archive_path):
-        print("Archive file not found. Packing web_static...")
-        archive_path = do_pack()
-        if not archive_path:
-            raise Exception("Packing failed")
 
-    successful_deploy = True
+    archive_path = do_pack()
+    if not archive_path:
+        return False
 
-    for host in env.hosts:
-        print(f"Deploying to host: {host}")
-        env.host_string = host
-        result = do_deploy(archive_path)
-        if not result:
-            print(f"Deployment failed for host: {host}")
-            successful_deploy = False
-        else:
-            print(f"Deployment successful for host: {host}")
+    return do_deploy(archive_path)
 
-    return successful_deploy
+
+if __name__ == '__main__':
+    deploy()
