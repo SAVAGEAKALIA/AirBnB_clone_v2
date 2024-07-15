@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """ Fabric Script to Update Version on webserver """
 
+import os
 from fabric.api import env
 
 do_pack = __import__('1-pack_web_static').do_pack
@@ -27,9 +28,15 @@ def deploy():
         return False
 
     successful_deploy = True
+
     for host in env.hosts:
+        print(f"Deploying to host: {host}")
         env.host_string = host
-        if not do_deploy(archive_path):
+        result = do_deploy(archive_path)
+        if not result:
+            print(f"Deployment failed for host: {host}")
             successful_deploy = False
+        else:
+            print(f"Deployment successful for host: {host}")
 
     return successful_deploy
