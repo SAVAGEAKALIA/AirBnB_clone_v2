@@ -15,14 +15,22 @@ env.hosts = ['54.160.101.222', '100.25.205.48']
 def deploy():
     """
     A script that deploys to both webserver
-    calls te do_pack function to compress to tgz
+    calls the do_pack function to compress to tgz
     calls the do_deploy function to send to the webserver
     and uncompress files
     """
+    try:
+        archive_path = do_pack()
+        if not archive_path:
+            raise Exception("Packing failed")
+    except Exception as e:
+        print(f"Error during packing: {e}")
+        return False
+
+    successful_deploy = True
     for host in env.hosts:
-        try:
-            archive_path = do_pack()
-        except Exception as e:
-            print(f"Error during packing: {e}")
-            return False
-        return do_deploy(archive_path)
+        env.host_string = host
+        if not do_deploy(archive_path):
+            successful_deploy = False
+
+    return successful_deploy
