@@ -5,20 +5,16 @@ from fabric.api import env, run, put
 import os
 from sys import argv
 
-
 # archive_path = argv[1]
 env.key_filename = argv[5]
 env.user = argv[7]
 env.hosts = ['54.160.101.222', '100.25.205.48']
-#print(argv[0], argv[1], argv[2], argv[3], argv[4], argv[5])
 
 
 def do_deploy(archive_path):
     """
     Script to Deploy and update newer version to server
     """
-
-    print(argv[5],argv[7])
     if not os.path.basename(archive_path):
         print(f"Archive file {archive_path} does not exist.")
         return False
@@ -30,10 +26,8 @@ def do_deploy(archive_path):
                 archive_name = os.path.basename(archive_path)
                 release_dir = \
                     f"/data/web_static/releases/{archive_name.replace('.tgz', '')}"
-                
-                for host in env.host:
-                    
 
+                for host in env.host:
                     print(f"Uploading {archive_path} to {host}...")
                     put(archive_name, '/tmp/')
 
