@@ -19,7 +19,8 @@ def do_pack():
         local(f'tar -cvzf {output_path} web_static', capture=False)
 
     if os.path.exists('versions'):
-        print("web_static packed: {} -> {}Bytes".format(output_path, os.path.getsize(output_path)))
+        print("web_static packed: {} -> {}Bytes".
+              format(output_path, os.path.getsize(output_path)))
         print(f'{os.path.join("versions", output_file)}')
         return os.path.join('versions', output_file)
     else:
