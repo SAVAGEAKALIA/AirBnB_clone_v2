@@ -8,6 +8,8 @@ if [ ! -d "/data/" ]; then
   mkdir -p /data/
 fi
 
+
+# shellcheck disable=SC2181
 if [ $? -ne 0 ]; then
   echo "/data/ failed"
   exit 1
@@ -18,6 +20,7 @@ if [ ! -d "/data/web_static/" ]; then
   mkdir -p /data/web_static/
 fi
 
+# shellcheck disable=SC2181
 if [ $? -ne 0 ]; then
   echo "/data/web_static/ failed to create"
   exit 1
@@ -28,6 +31,7 @@ fi
 if [ ! -d "/data/web_static/releases/" ]; then
   mkdir -p /data/web_static/releases/
 fi
+# shellcheck disable=SC2181
 if [ $? -ne 0 ]; then
   echo "/data/web_static/releases failed to create"
   exit 1
@@ -38,6 +42,7 @@ if [ ! -d "/data/web_static/shared/" ]; then
   mkdir -p /data/web_static/shared/
 fi
 
+# shellcheck disable=SC2181
 if [ $? -ne 0 ]; then
   echo "/data/web_static/shared/ failed to create"
   exit 1
@@ -47,6 +52,7 @@ fi
 if [ ! -d "/data/web_static/releases/test/" ]; then
   mkdir -p /data/web_static/releases/test/
 fi
+# shellcheck disable=SC2181
 if [ $? -ne 0 ]; then
   echo "/data/web_static/releases/test failed to create"
   exit 1
@@ -70,6 +76,7 @@ if ! grep -q "hbnb_static" /etc/nginx/sites-available/default; then
   sudo sed -i '/server_name _;/a \\t\t location \/hbnb_static {\n\t\t\talias \/data\/web_static\/current\/;\n\t\t}' /etc/nginx/sites-available/default
 fi
 
+# shellcheck disable=SC2181
 if [ $? -ne 0 ]; then
   echo "grep command failed"
   exit 1
