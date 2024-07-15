@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """ Fabric Script to Update Version on webserver """
 
-from fabric import Connection, task, env
+from fabric.api import Connection,  env
 import os
 from sys import argv
 

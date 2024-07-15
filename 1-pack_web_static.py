@@ -15,7 +15,7 @@ def do_pack():
         os.makedirs(os.path.join('version', ''))
         output_path = os.path.join('version', output_file)
         print("Packing web_static to {}".format(output_path))
-        local(f'tar -czf {output_path} web_static', capture=False)
+        local(f'tar -cvzf {output_path} web_static', capture=False)
 
     if os.path.exists('version'):
         print("web_static packed: {} -> {}Bytes".format(output_path, os.path.getsize(output_path)))
