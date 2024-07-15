@@ -93,7 +93,7 @@ def do_deploy(archive_path):
         run(f'ln -s {release_dir} /data/web_static/current')
 
         print("New Version deployed successfully.")
-    return True
+        return True
 
 
 # Entry point when script is run directly from the command line
