@@ -30,6 +30,9 @@ def do_deploy(archive_path):
                 print(f"Uploading {archive_path} to {host}...")
                 put(archive_name, '/tmp/')
 
+                print(f"Creating directory {release_dir} on {host}...")
+                run(f'mkdir -p {release_dir}')
+
                 print(f"Extracting {archive_name} on {host}...")
                 run(f'tar -xzf /tmp/{archive_name} -C {release_dir}')
 
