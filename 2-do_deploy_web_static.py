@@ -5,15 +5,12 @@ from fabric.api import env, run, put
 import os
 from sys import argv
 
-if len(argv) < 4:
-    print("Usage: ./deploy.py <archive_path> <key_filename> <user>")
-    exit(1)
 
 # archive_path = argv[1]
-env.key_filename = argv[2]
-env.user = argv[3]
+env.key_filename = argv[5]
+env.user = argv[7]
 env.hosts = ['54.160.101.222', '100.25.205.48']
-print(argv[0], argv[1], argv[2], argv[3], argv[4], argv[5])
+#print(argv[0], argv[1], argv[2], argv[3], argv[4], argv[5])
 
 
 def do_deploy(archive_path):
@@ -21,20 +18,21 @@ def do_deploy(archive_path):
     Script to Deploy and update newer version to server
     """
 
+    print(argv[5],argv[7])
     if not os.path.basename(archive_path):
         print(f"Archive file {archive_path} does not exist.")
         return False
     else:
         if not argv[1:]:
-            print("archive_path:argv[0], ssh_path:argv[2], user:argv[4]")
+            print("ssh_path:argv[5], user:argv[7]")
         else:
             try:
                 archive_name = os.path.basename(archive_path)
                 release_dir = \
                     f"/data/web_static/releases/{archive_name.replace('.tgz', '')}"
+                
                 for host in env.host:
-                    print(argv[4])
-                    print(argv[2])
+                    
 
                     print(f"Uploading {archive_path} to {host}...")
                     put(archive_name, '/tmp/')
