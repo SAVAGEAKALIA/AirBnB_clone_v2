@@ -42,7 +42,7 @@ def do_deploy(archive_path):
     Deploy and update a newer version to the server.
 
     Args:
-    - archive_path: Path to the archive file to be deployed.
+    - archive_path: Path to the archive files to be deployed.
 
     Returns:
     - True if deployment is successful, False otherwise.
