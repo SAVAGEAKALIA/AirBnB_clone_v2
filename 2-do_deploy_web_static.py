@@ -19,7 +19,8 @@ Functions:
         - Creates necessary directories.
         - Extracts the archive.
         - Moves files to the correct directory structure.
-        - Updates symbolic links. """
+        - Updates symbolic links.
+"""
 
 from fabric.api import env, run, put
 import os
