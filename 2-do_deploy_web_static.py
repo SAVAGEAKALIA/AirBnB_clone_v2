@@ -99,3 +99,14 @@ def do_deploy(archive_path):
         # Handle any exceptions that occur during deployment
         print(f"Deployment failed: {e}")
         return False
+
+
+# Entry point when script is run directly from the command line
+if __name__ == "__main__":
+    """ Check if the correct number of command line arguments are provided """
+    if len(argv) < 4:
+        print("Usage: python3 do_deploy.py <archive_path> <key_filename> <username>")
+    else:
+        # Call do_deploy function with the provided archive_path
+        archive_path = argv[1]
+        do_deploy(archive_path)
