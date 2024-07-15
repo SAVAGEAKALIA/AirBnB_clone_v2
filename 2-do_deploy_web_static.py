@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+# Something is wrong with documentation
 """ Fabric Script to Deploy and Update Version on Web Server. This script automates the deployment process by uploading
  a specified archive
 to multiple hosts, extracting it, and updating symbolic links on the servers.
@@ -42,6 +43,7 @@ def do_deploy(archive_path):
         return False
 
     try:
+        """ try and raise exception to catch any errors during Deployment"""
         archive_name = os.path.basename(archive_path)
         # Construct the release directory path
         release_dir = \
@@ -86,6 +88,6 @@ def do_deploy(archive_path):
             return True
 
     except Exception as e:
-        # Handle any exceptions that occur during deployment
+        """ Handle any exceptions that occur during deployment """
         print(f"Deployment failed: {e}")
         return False
