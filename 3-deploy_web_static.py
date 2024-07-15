@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 """ Fabric Script to Update Version on webserver """
 
-import os
 from fabric.api import env
 
 do_pack = __import__('1-pack_web_static').do_pack

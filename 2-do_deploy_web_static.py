@@ -55,8 +55,8 @@ def do_deploy(archive_path):
     try:
         archive_name = os.path.basename(archive_path)
         # Construct the release directory path
-        # release_dir = f"/data/web_static/releases/{archive_name.replace('.tgz', '')}"
-        release_dir = {archive_name.replace('.tgz', '')}
+        release_dir = \
+            f"/data/web_static/releases/{archive_name.replace('.tgz', '')}"
 
         # Iterate over each host defined in Fabric's env.hosts
         for host in env.hosts:
@@ -66,24 +66,23 @@ def do_deploy(archive_path):
 
             # Create the release directory
             print(f"Creating directory {release_dir} on {host}...")
-            run(f'rm -rf /data/web_static/releases/*')
-            run(f'mkdir -p /data/web_static/releases/{release_dir}')
+            run(f'mkdir -p {release_dir}')
 
             # Extract the archive contents to the release directory
             print(f"Extracting {archive_name} on {host}...")
-            run(f'tar -xzf /tmp/{archive_name} -C /data/web_static/releases/{release_dir}')
+            run(f'tar -xzf /tmp/{archive_name} -C {release_dir}')
 
             # Remove the archive from /tmp/ directory on the web server
             print(f"Removing {archive_name} from {host}...")
             run(f'rm -rf /tmp/{archive_name}')
 
             # Move the contents of the web_static directory to release_dir
-            print(f"Move /data/web_static/releases/{release_dir}/web_static* to /data/web_static/releases/...")
-            run(f'mv /data/web_static/releases/{release_dir}/web_static/* /data/web_static/releases/')
+            print(f"Move {release_dir}/web_static* to {release_dir}...")
+            run(f'mv {release_dir}/web_static/* {release_dir}')
 
             # Remove the old web_static directory from release_dir
             print(f"Deleting {release_dir}/web_static*...")
-            run(f'rm -rf /data/web_static/releases/{release_dir}/web_static')
+            run(f'rm -rf {release_dir}/web_static')
 
             # Remove the old release directory from the server
             print(f"Deleting current symlink on {host}...")
@@ -91,7 +90,7 @@ def do_deploy(archive_path):
 
             # Create a new symlink to the new release directory on the server
             print(f"Creating new symlink on {host}...")
-            run(f'ln -s /data/web_static/releases/{release_dir} /data/web_static/current')
+            run(f'ln -s {release_dir} /data/web_static/current')
 
         print("New Version deployed successfully.")
         return True
