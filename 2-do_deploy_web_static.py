@@ -39,13 +39,13 @@ env.hosts = ['54.160.101.222', '100.25.205.48']
 
 def do_deploy(archive_path):
     """
-    Deploy and update newer version to server.
+    Deploy and update a newer version to the server.
 
     Args:
-        archive_path (str): Path to the archive file to deploy.
+    - archive_path: Path to the archive file to be deployed.
 
     Returns:
-        bool: True if deployment succeeds, False otherwise.
+    - True if deployment is successful, False otherwise.
     """
     # Check if the archive file exists
     if not os.path.exists(archive_path):
