@@ -6,7 +6,7 @@ import os
 from sys import argv
 
 archive_path = argv[1]
-env.host = ['54.160.101.222', '100.25.205.48']
+env.hosts = ['54.160.101.222', '100.25.205.48']
 env.user = argv[4]
 env.key_filename = argv[2]
 
@@ -46,7 +46,7 @@ def do_deploy(archive_path):
                         c.run(f'rm -rf /tmp/{archive_name}')
 
                         print(f"Deleting current symlink on {host}...")
-                        c.run(f'rm -fs /data/web_static/current')
+                        c.run(f'rm -rf /data/web_static/current')
 
                         print(f"Creating new symlink on {host}...")
                         c.run(f'ln -s {release_dir} /data/web_static/current')
