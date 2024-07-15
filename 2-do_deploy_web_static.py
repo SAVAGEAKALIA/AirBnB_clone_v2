@@ -32,8 +32,8 @@ import os
 from sys import argv
 
 # Set Fabric environment variables from command line arguments
-env.key_filename = argv[2]
-env.user = argv[3]
+env.key_filename = argv[5]
+env.user = argv[7]
 env.hosts = ['54.160.101.222', '100.25.205.48']
 
 
