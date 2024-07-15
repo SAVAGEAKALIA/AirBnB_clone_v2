@@ -12,21 +12,14 @@ env.hosts = ['54.160.101.222', '100.25.205.48']
 
 
 def do_deploy(archive_path):
-    """
-    Deploy and update a newer version to the server.
-
-    Args:
-    - archive_path: Path to the archive file to be deployed.
-
-    Returns:
-    - True if deployment is successful, False otherwise.
-    """
+    """ Function to Deploy and update a newer version of website release"""
     # Check if the archive file exists
     if not os.path.exists(archive_path):
         print(f"Archive file {archive_path} does not exist.")
         return False
 
     try:
+        """ try exception handling to catch errors"""
         archive_name = os.path.basename(archive_path)
         # Construct the release directory path
         release_dir = \
