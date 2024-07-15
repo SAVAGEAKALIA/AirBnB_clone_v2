@@ -10,7 +10,8 @@ def do_pack():
     """ Function to implement generation of tgz files"""
     # c = Connection('localhost')
     current_time = datetime.now()
-    output_file = f"web_static_{current_time.strftime('%Y%m%d%H%M%S')}.tgz"
+    output_file = \
+        f"web_static_{current_time.strftime('%Y%m%d%H%M%S')}.tgz"
     if not os.path.exists('versions'):
         os.makedirs(os.path.join('versions', ''))
         output_path = os.path.join('versions', output_file)
