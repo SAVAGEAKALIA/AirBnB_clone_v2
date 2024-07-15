@@ -13,12 +13,12 @@ def do_pack():
         f"web_static_{current_time.strftime('%Y%m%d%H%M%S')}.tgz"
     if not os.path.exists('versions'):
         os.makedirs(os.path.join('versions', ''))
-        output_path = os.path.join('versions', output_file)
-        # print("Packing web_static to {}".format(output_path))
-        local(f'tar -cvzf {output_path} web_static')
+    output_path = os.path.join('versions', output_file)
+    # print("Packing web_static to {}".format(output_path))
+    local(f'tar -cvzf {output_path} web_static')
 
-        print(f'web_static packed: '
-              f'{output_path} -> {os.path.getsize(output_path)}Bytes')
+    print(f'web_static packed: '
+          f'{output_path} -> {os.path.getsize(output_path)}Bytes')
     if os.path.exists('versions'):
         print(f'{os.path.join("versions", output_file)}')
         return os.path.join('versions', output_file)
