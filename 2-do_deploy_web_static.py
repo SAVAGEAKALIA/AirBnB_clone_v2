@@ -66,7 +66,7 @@ def do_deploy(archive_path):
 
             # Create the release directory
             print(f"Creating directory {release_dir} on {host}...")
-            run(f'rm -rf /data/web_static/releases/{release_dir}')
+            run(f'rm -rf /data/web_static/releases/*')
             run(f'mkdir -p /data/web_static/releases/{release_dir}')
 
             # Extract the archive contents to the release directory
@@ -93,8 +93,8 @@ def do_deploy(archive_path):
             print(f"Creating new symlink on {host}...")
             run(f'ln -s /data/web_static/releases/{release_dir} /data/web_static/current')
 
-            print("New Version deployed successfully.")
-            return True
+        print("New Version deployed successfully.")
+        return True
 
     except Exception as e:
         # Handle any exceptions that occur during deployment
