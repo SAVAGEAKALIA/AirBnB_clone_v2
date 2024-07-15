@@ -12,8 +12,7 @@ env.hosts = ['54.160.101.222', '100.25.205.48']
 
 
 def deploy():
-    """ A script that deploys to both webservers
-    calls the do_pack function to compress to tgz (moved outside the loop)
+    """ A script that deploys to both webservers calls the do_pack function to compress to tgz (moved outside the loop)
     calls the do_deploy function to send to the webserver
     and uncompress files """
     archive_path = do_pack()
@@ -33,7 +32,3 @@ def deploy():
             print(f"Deployment successful for host: {host}")
 
     return successful_deploy
-
-
-if __name__ == '__main__':
-    deploy()
