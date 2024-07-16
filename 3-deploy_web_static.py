@@ -5,7 +5,6 @@ Highlights the use of fabric in script automation
 """
 
 from fabric.api import env
-from fabric.context_managers import settings
 
 do_pack = __import__('1-pack_web_static').do_pack
 do_deploy = __import__('2-do_deploy_web_static').do_deploy
@@ -40,14 +39,14 @@ def deploy():
 
     successful_deploy = True
 
-    for host in env.hosts:
-        print(f"Deploying to host: {host}")
-        with settings(host_string=host):
-            result = do_deploy(archive_path)
-            if not result:
-                print(f"Deployment failed for host: {host}")
-                successful_deploy = False
-            else:
-                print(f"Deployment successful for host: {host}")
+    # for host in env.hosts:
+    # print(f"Deploying to host: {host}")
+    # with settings(host_string=host):
+    result = do_deploy(archive_path)
+    if not result:
+        print(f"Deployment failed for host: {env.hosts}")
+        successful_deploy = False
+    else:
+        print(f"Deployment successful for host: {env.hosts}")
 
     return successful_deploy
