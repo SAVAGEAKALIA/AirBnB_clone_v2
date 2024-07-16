@@ -22,13 +22,15 @@ def do_clean(number=0):
     """
     version_dir = os.path.join('version', '')
     version_file = os.listdir(version_dir)
-    file_date = []
+    file_date = {}
     for file in version_file:
         file_path = os.path.join(version_dir, file)
         modification_data = os.path.getmtime(file_path)
         file_date[file] = modification_data
 
-    file_date = file_date.sort(key=file_date.get)
+    # file_dae = file_date.sorted(key=file_date.get)
+    # sorted_files = sorted(file_date, key=lambda x: x[1])
+    file_date = sorted(file_date.items(), key=lambda x: x[1])
 
     if number == 0 or number == 1:
         local(f'rm os.path.join("versions", {file_date[:-1]}')
