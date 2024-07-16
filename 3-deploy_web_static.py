@@ -9,7 +9,7 @@ from fabric.api import env
 do_pack = __import__('1-pack_web_static').do_pack
 do_deploy = __import__('2-do_deploy_web_static').do_deploy
 
-env.hosts = ['54.160.101.222', '100.25.205.48']
+# env.hosts = ['54.160.101.222', '100.25.205.48']
 # env.user = 'ubuntu'
 # env.key_filename = '/etc/ssh/ssh_config'
 
@@ -33,20 +33,20 @@ def deploy():
     Returns:
     bool: True if all deployments are successful, False otherwise
     """
-    archive_path = do_pack()
-    if not archive_path:
-        raise Exception("Packing failed")
+    archive = do_pack()
+    if not archive:
+        return False
 
-    successful_deploy = True
+    # successful_deploy = True
 
     # for host in env.hosts:
     # print(f"Deploying to host: {host}")
     # with settings(host_string=host):
-    result = do_deploy(archive_path)
-    if not result:
-        print(f"Deployment failed for host: {env.hosts}")
-        successful_deploy = False
-    else:
-        print(f"Deployment successful for host: {env.hosts}")
+    return do_deploy(archive)
+    # if not result:
+    #    print(f"Deployment failed for host: {env.hosts}")
+    #    successful_deploy = False
+    # else:
+    #    print(f"Deployment successful for host: {env.hosts}")
 
-    return successful_deploy
+    #return successful_deploy
