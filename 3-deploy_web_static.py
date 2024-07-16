@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python
 """
 Fabric Script to Update Version on webserver by importing functions
 Highlights the use of fabric in script automation
