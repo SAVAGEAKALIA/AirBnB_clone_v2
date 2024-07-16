@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """
-Fabric Script to Deploy and Update Version on Web Server. This script automates the deployment process by uploading
+Fabric Script to Deploy and Update Version on Web Server.
+This script automates the deployment process by uploading
  a specified archive
 to multiple hosts, extracting it, and updating symbolic links on the servers.
 Usage:
@@ -38,11 +39,13 @@ def do_deploy(archive_path: str) -> bool:
     """
     Deploys a specified archive to remote hosts.
 
-    This function automates the deployment process by uploading an archive file to multiple hosts,
+    This function automates the deployment process by
+    uploading an archive file to multiple hosts,
     extracting it, and updating symbolic links on the servers.
 
     Parameters:
-    - archive_path (str): Path to the archive file to deploy. The file must exist.
+    - archive_path (str): Path to the archive file to deploy.
+    The file must exist.
 
     Returns:
     - bool: True if the deployment is successful, False otherwise.

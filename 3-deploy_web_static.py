@@ -17,11 +17,16 @@ env.hosts = ['54.160.101.222', '100.25.205.48']
 
 def deploy():
     """
-    This function automates the deployment of a web static archive to multiple hosts using Fabric.
-    It first calls the `do_pack` function to create a .tgz archive of the web static files.
-    If the archive creation is successful, it proceeds to deploy the archive to each host in the `env.hosts` list.
-    For each host, it uses Fabric's `settings` context manager to execute the `do_deploy` function.
-    The function returns `True` if all deployments are successful, and `False` otherwise.
+    This function automates the deployment of a web
+    static archive to multiple hosts using Fabric.
+    It first calls the `do_pack` function to create
+    .tgz archive of the web static files.
+    If the archive creation is successful, it proceeds to
+    deploy the archive to each host in the `env.hosts` list.
+    For each host, it uses Fabric's `settings` context
+    manager to execute the `do_deploy` function.
+    The function returns `True` if all deployments
+    are successful, and `False` otherwise.
 
     Parameters:
     None
