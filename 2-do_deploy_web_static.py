@@ -28,9 +28,10 @@ from sys import argv
 from fabric.context_managers import settings
 
 # Set Fabric environment variables from command line arguments
-env.key_filename = argv[5]
-env.user = argv[7]
-env.hosts = ['54.160.101.222', '100.25.205.48']
+if len(argv) > 3:
+    env.key_filename = argv[5]
+    env.user = argv[7]
+    env.hosts = ['54.160.101.222', '100.25.205.48']
 
 
 def do_deploy(archive_path: str) -> bool:
@@ -59,7 +60,10 @@ def do_deploy(archive_path: str) -> bool:
             f"/data/web_static/releases/{archive_name.replace('.tgz', '')}"
 
         # Iterate over each host defined in Fabric's env.hosts
-        for host in env.hosts:
+        hosts = env.hosts
+        print(hosts)
+        for host in hosts:
+            print(f'current {host}\n')
             with settings(host_string=host):
                 # Upload the archive to /tmp/ directory on the web server
                 print(f"Uploading {archive_path} to {host}...")
@@ -95,6 +99,7 @@ def do_deploy(archive_path: str) -> bool:
                 run(f'ln -s {release_dir} /data/web_static/current')
 
                 print("New Version deployed successfully.")
+                print(f'{host}\n')
         return True
 
     except Exception as e:
