@@ -1,19 +1,21 @@
-#!/usr/bin/env python
+#!/usr/bin/python3
 """
 Fabric Script to Update Version on webserver by importing functions
 Highlights the use of fabric in script automation
 """
 
-from fabric.api import env, run, put, local
+from fabric.api import env, run, put, local, execute
 import os
 from datetime import datetime
 
 # do_pack = __import__('1-pack_web_static').do_pack
 # do_deploy = __import__('2-do_deploy_web_static').do_deploy
 
-env.hosts = ['54.160.101.222', '100.25.205.48']
+# env.hosts = ['54.160.101.222', '100.25.205.48']
 # env.user = 'ubuntu'
 # env.key_filename = '/etc/ssh/ssh_config'
+
+archive_path = None
 
 
 def do_pack():
@@ -29,9 +31,9 @@ def do_pack():
 
     print(f'web_static packed: '
           f'{output_path} -> {os.path.getsize(output_path)}Bytes')
-    if os.path.exists('versions'):
-        print(f'{os.path.join("versions", output_file)}')
-        return os.path.join('versions', output_file)
+    if os.path.exists(output_path):
+        print(output_path)
+        return output_path
     else:
         return None
 
@@ -131,12 +133,15 @@ def deploy():
     Returns:
     bool: True if all deployments are successful, False otherwise
     """
-    archive = do_pack()
-    if not archive:
-        return False
+    env.hosts = ['54.160.101.222', '100.25.205.48']
+    global archive_path
+    if archive_path is None:
+        archive_path = do_pack()
+        if not archive_path:
+            raise Exception("Packing failed")
 
-    # for host in env.hosts:
-    # print(f"Deploying to host: {host}")
-    # with settings(host_string=host):
-    return do_deploy(archive_path)
+    return all(execute(do_deploy, archive_path))
 
+
+if __name__ == "__main__":
+    deploy()
