@@ -77,7 +77,7 @@ def do_deploy(archive_path: str) -> bool:
 
         # Create the release directory
         print(f"Creating directory {release_dir} on {hosts}...")
-        run(f'rm -rf /data/web_static/releases/*')
+        # run(f'rm -rf /data/web_static/releases/*')
         run(f'mkdir -p {release_dir}')
 
         # Extract the archive contents to the release directory

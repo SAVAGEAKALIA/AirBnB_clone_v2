@@ -146,7 +146,8 @@ def deploy():
 
 def do_clean(number=0):
     """
-    Cleans up old archives by deleting all but the most recent 'number' archives.
+    Cleans up old archives by deleting all
+    but the most recent 'number' archives.
     """
     env.hosts = ['54.160.101.222', '100.25.205.48']
     number = int(number)
