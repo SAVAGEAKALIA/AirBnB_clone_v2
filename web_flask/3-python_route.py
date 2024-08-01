@@ -18,7 +18,8 @@ def hbnb_route():
 @app.route('/c/<text>', strict_slashes=False)
 def c_route(text):
     """
-    This function handles the route '/c/<text>' and returns a formatted string.
+    This function handles the route '/c/<text>'
+    and returns a formatted string.
     Returns 404 error page if no value is given
     """
     if text:
