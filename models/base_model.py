@@ -63,10 +63,10 @@ class BaseModel:
         # print(f"Before popping _sa_instance_state: {dictionary}")
         dictionary.pop('_sa_instance_state', None)
         # print(f"After popping _sa_instance_state: {dictionary}")
-        dictionary['__class__'] = \
-            (str(type(self)).split('.')[-1]).split('\'')[0]
         dictionary['created_at'] = self.created_at.isoformat()
         dictionary['updated_at'] = self.updated_at.isoformat()
+        dictionary['__class__'] = \
+            (str(type(self)).split('.')[-1]).split('\'')[0]
         return dictionary
 
     def delete(self):
