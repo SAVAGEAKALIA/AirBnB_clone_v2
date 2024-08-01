@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/python3
 """ First flask script to run flask on server 0:0:0:0"""
 
 from flask import Flask
