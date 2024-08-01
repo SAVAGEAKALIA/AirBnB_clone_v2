@@ -1,10 +1,7 @@
 #!/usr/bin/python3
 """ Route C function app together with variable text"""
 from flask import Flask
-import sys
 
-if len(sys.argv) > 3:
-    arg = sys.argv[4].replace('_', ' ')
 app = Flask(__name__)
 
 
