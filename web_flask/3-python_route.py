@@ -30,7 +30,8 @@ def c_route(text):
 @app.route('/python/<text>', strict_slashes=False)
 def python_route(text):
     """
-    This function handles the route '/python/<text>' and returns a formatted string.
+    This function handles the route '/python/<text>'
+    and returns a formatted string.
     Displays a default value 'cool' if value is given
     """
     if text:
