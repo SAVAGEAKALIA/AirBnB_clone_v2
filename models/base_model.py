@@ -26,18 +26,17 @@ class BaseModel:
 
     def __init__(self, *args, **kwargs):
         """Instantiates a new model"""
-        if not self.id:
+        if not kwargs:
             self.id = str(uuid.uuid4())
-        if not self.created_at:
             self.created_at = datetime.utcnow()
-        if not self.updated_at:
-            self.updated_at = datetime.utcnow()
-
-        if kwargs:
+            self.updated_at = self.created_at
+        else:
             for key, value in kwargs.items():
-                if key == 'created_at' or key == 'updated_at':
-                    value = datetime.strptime(value, "%Y-%m-%dT%H:%M:%S.%f")
-                if key != '__class__' and hasattr(self.__class__, key):
+                if key == '__class__':
+                    continue
+                elif key == 'created_at' or key == 'updated_at':
+                    setattr(self, key, datetime.fromisoformat(value))
+                else:
                     setattr(self, key, value)
 
     def __str__(self):
