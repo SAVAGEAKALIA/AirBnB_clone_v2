@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/python3
 """ Route Python function app together with variable text"""
 from flask import Flask
 
