@@ -13,9 +13,11 @@ from models.state import State
 from models.city import City
 from models.amenity import Amenity
 from models.review import Review
-#import logging
-#logging.basicConfig()
-#logging.getLogger('sqlalchemy.engine').setLevel(logging.INFO)
+
+
+# import logging
+# logging.basicConfig()
+# logging.getLogger('sqlalchemy.engine').setLevel(logging.INFO)
 
 
 class DBStorage:
@@ -26,7 +28,6 @@ class DBStorage:
     __engine = None
     __session = None
 
-
     def __init__(self):
         """ Instance int function for class """
         USER = getenv('HBNB_MYSQL_USER')
@@ -36,7 +37,7 @@ class DBStorage:
         data_set = 'mysql+mysqldb://{}:{}@{}/{}'.format(USER, PWD, HOST, DB)
         self.__engine = create_engine(data_set, pool_pre_ping=True)
 
-        #Base.metadata.create_all(self.__engine)
+        # Base.metadata.create_all(self.__engine)
 
         if getenv('HBNB_ENV') == 'test':
             Base.metadata.drop_all(self.__engine)
@@ -52,21 +53,21 @@ class DBStorage:
                 obj += self.__session.query(i).all()
         new_dict = {}
         for i in obj:
-            #key = type(i).__name__ + '.' + i.id
+            # key = type(i).__name__ + '.' + i.id
             key = i.to_dict()['__class__'] + '.' + i.id
             new_dict[key] = i
 
-
         return new_dict
+
     def new(self, obj):
         """ add the object to the current database session (self.__session)"""
-        #print(f"Adding object to session: {obj}")
+        # print(f"Adding object to session: {obj}")
         if obj:
             self.__session.add(obj)
 
     def save(self):
         """ commit all changes of the current database session"""
-        #print("Committing changes to the database...")
+        # print("Committing changes to the database...")
         self.__session.commit()
 
     def delete(self, obj=None):
@@ -76,13 +77,13 @@ class DBStorage:
 
     def reload(self):
         """ create all tables in the database """
-        #print("Creating all tables in the database...")
+        # print("Creating all tables in the database...")
         Base.metadata.create_all(self.__engine)
         sess = scoped_session(sessionmaker(bind=self.__engine,
                                            expire_on_commit=False))
         self.__session = sess()
 
-        #print("Database reloaded successfully.")
+        # print("Database reloaded successfully.")
 
     def close(self):
         """call remove() method on the private session attribute"""
