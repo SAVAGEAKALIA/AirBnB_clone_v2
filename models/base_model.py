@@ -8,9 +8,10 @@ from os import getenv
 from datetime import datetime
 from sqlalchemy import Column, String, DateTime
 from sqlalchemy.ext.declarative import declarative_base
-#import logging
-#logging.basicConfig()
-#logging.getLogger('sqlalchemy.engine').setLevel(logging.INFO)
+
+# import logging
+# logging.basicConfig()
+# logging.getLogger('sqlalchemy.engine').setLevel(logging.INFO)
 
 
 Base = declarative_base()
@@ -18,16 +19,19 @@ Base = declarative_base()
 
 class BaseModel:
     """A base class for all hbnb models"""
-    #if getenv('HBNB_TYPE_STORAGE') == 'db':
+    # if getenv('HBNB_TYPE_STORAGE') == 'db':
     id = Column(String(60), primary_key=True, nullable=False)
-    created_at = Column(DateTime, nullable=False, default=datetime.utcnow())
-    updated_at = Column(DateTime, nullable=False, default=datetime.utcnow())
+    created_at = Column(DateTime, nullable=False, default=datetime.now())
+    updated_at = Column(DateTime, nullable=False, default=datetime.now())
 
     def __init__(self, *args, **kwargs):
         """Instantiates a new model"""
-        self.id = str(uuid.uuid4())
-        self.created_at = datetime.utcnow()
-        self.updated_at = datetime.utcnow()
+        if not self.id:
+            self.id = str(uuid.uuid4())
+        if not self.created_at:
+            self.created_at = datetime.utcnow()
+        if not self.updated_at:
+            self.updated_at = datetime.utcnow()
 
         if kwargs:
             for key, value in kwargs.items():
@@ -56,11 +60,11 @@ class BaseModel:
     def to_dict(self):
         """Convert instance into dict format"""
         dictionary = self.__dict__.copy()
-        #print(f"Before popping _sa_instance_state: {dictionary}")
+        # print(f"Before popping _sa_instance_state: {dictionary}")
         dictionary.pop('_sa_instance_state', None)
-        #print(f"After popping _sa_instance_state: {dictionary}")
-        dictionary['__class__'] = (str(type(self)).\
-            split('.')[-1]).split('\'')[0]
+        # print(f"After popping _sa_instance_state: {dictionary}")
+        dictionary['__class__'] = \
+            (str(type(self)).split('.')[-1]).split('\'')[0]
         dictionary['created_at'] = self.created_at.isoformat()
         dictionary['updated_at'] = self.updated_at.isoformat()
         return dictionary
