@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/python3
 """ Route two app together '/' and '/HBNB'"""
 from flask import Flask
 
